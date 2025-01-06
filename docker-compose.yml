@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    #command: 'python manage.py runserver 0.0.0.0:8000'
+    command: 'python manage.py runserver 0.0.0.0:8000'
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
       - .:/app
     depends_on:
@@ -17,11 +17,10 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: admin
+      MYSQL_USER: root
       MYSQL_PASSWORD: root
-      MYSQL_COMMAND: >
-        sh -c "while ! nc -z db 3306; do sleep 1; done; python manage.py runserver 0.0.0.0:8000"
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
-      - 33066:3306
+      - "33066:3306"
